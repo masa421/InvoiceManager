@@ -22,6 +22,7 @@
                         <th>Total Cost</th>
                         <th>Due</th>
                         <th>Date</th>
+                        <th>Show</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,6 +38,9 @@
                         <td>{{ $row->total }}</td>
                         <td>{{ $row->due }}</td>
                         <td>{{ $row->created_at }}</td>
+                        <td>
+                            <a href="{{URL::to('show-invoice/'.$row->id)}}" class="btn btn-sm btn-info">Show</a>
+                        </td>
                     </tr>
                     @endforeach
                     

@@ -30,7 +30,7 @@
                         <td>{{ $row->address }}</td>
                         <td>{{ $row->phone }}</td>
                         <td>
-                            <a href="{{URL::to('edit_customer')}}" class="btn btn-sm btn-info">Edit</a>
+                            <a href="{{URL::to('edit-customer/'.$row->id)}}" class="btn btn-sm btn-info">Edit</a>
                             <!-- <a href="{{ 'add-order/'.$row->id }}" class="btn btn-sm btn-info">Order</a> -->
                         </td>
                     </tr>

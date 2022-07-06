@@ -15,7 +15,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="small mb-1" for="inputFirstName">Customer Name</label>
-                        <input class="form-control py-4" name="customer" type="text" value="{{ $customer->name }}" />
+                        <input class="form-control py-4" name="customer_name" type="text" value="{{ $customer->name }}" />
                     </div>
                 </div>
                 <div class="col-md-6">

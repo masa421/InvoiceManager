@@ -62,10 +62,11 @@ class CustomerController extends Controller
 
     public function edit($id)
     {
-        $customers = Customer::where('id' ,'=',$id)->get();
-     
-        return view('customer.edit_customer',compact('customers'));
+        // $customers = Customer::where('id' ,'=',$id)->get();     
+        // return view('Admin.edit_customer',compact('customers'));
 
+        $customers =  Customer::find($id);
+        return view('Admin.edit_customer',compact('customers'));
     }
 
 
@@ -95,15 +96,17 @@ class CustomerController extends Controller
         $customer =  Customer::find($id);
         $customer->name = $request->name;
         $customer->email = $request->email;
-        $customer->password = $request->password;
-        $customer->gender = $request->gender;
-        if($request->is_active){
-            $customer->is_active = 1;
-
-        }
+        $customer->company = $request->company;
+        $customer->address = $request->address;
+        $customer->phone = $request->phone;
+        // $customer->password = $request->password;
+        // $customer->gender = $request->gender;
+        // if($request->is_active){
+        //    $customer->is_active = 1;
+        // }
       
-        $customer->date_of_birth = $request->date_of_birth;
-        $customer->roll = $request->roll;
+        // $customer->date_of_birth = $request->date_of_birth;
+        // $customer->roll = $request->roll;
 
         if($customer->save())
         {
@@ -125,6 +128,10 @@ class CustomerController extends Controller
         return view('Admin.all_customers',compact('customers'));
     }
          
+    public function Editcustomer($id){
+        $customer =  Customer::find($id);
+        return view('Admin.edit_customer',compact('customers'));
+    }
      
 
     public function delete($id)

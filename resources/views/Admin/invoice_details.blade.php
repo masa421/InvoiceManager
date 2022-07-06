@@ -110,7 +110,7 @@
 						<table>
 							<tr>
 								<td class="title">
-									<h2>SEP Company Ltd.</h2>
+									<h2>Dflat</h2>
 								</td>
 
 								<td>
@@ -127,9 +127,9 @@
 						<table>
 							<tr>
 								<td>
-									SEP Company Ltd.<br />
-									GEC<br />
-									Chittagong, Bangladesh
+									Dflat<br />
+									0401-536-214<br />
+									Embleton, Perth
 								</td>
 
 								<td>

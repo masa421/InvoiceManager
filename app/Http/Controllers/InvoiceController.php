@@ -93,4 +93,13 @@ class InvoiceController extends Controller
     public function delete(){
         Invoice::truncate();
     }
+
+    public function edit($id)
+    {
+        // $customers = Customer::where('id' ,'=',$id)->get();     
+        // return view('Admin.edit_customer',compact('customers'));
+
+        $data =  Invoice::find($id);
+        return view('Admin.invoice_details',compact('data'));
+    }    
 }

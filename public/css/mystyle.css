@@ -1,0 +1,33 @@
+@media print
+{
+  .button
+  {
+    display: none;
+  }
+  .noprint{
+    display:none;
+  } 
+
+  .invoice-box{
+    width: 210mm;
+    height: 297mm;
+    box-sizing: border-box;
+    padding: 20mm;
+  }
+  head title{
+    display:none;  
+  }
+}
+
+@page { 
+  /*size: auto;  */
+  margin: 0mm; 
+}
+
+.invoice-box{
+  width: 210mm;
+  height: 297mm;
+  box-sizing: border-box;
+  padding: 20mm;
+}
+

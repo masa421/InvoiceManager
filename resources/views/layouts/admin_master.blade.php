@@ -1,4 +1,4 @@
-Products<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -12,6 +12,7 @@ Products<!DOCTYPE html>
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{{ asset('css/mystyle.css') }}">
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -132,9 +133,9 @@ Products<!DOCTYPE html>
                 @yield('content')
 
                 <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid">
+                    <div class="container-fluid noprint">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Shakil Ahmed, Ekram Asif & Safana Quyum Chowdhury</div>
+                            <div class="text-muted">Copyright &copy; Masa@Dflat</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;

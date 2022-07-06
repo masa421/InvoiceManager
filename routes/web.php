@@ -51,6 +51,8 @@ Route::get('/invoice-details', function () {
 
 Route::get('/all-invoice', [InvoiceController::class,'allInvoices'])->middleware(['auth'])->name('all.invoices');
 
+Route::get('/show-invoice/{id}', [InvoiceController::class,'edit'])->middleware(['auth'])->name('show.invoice');
+
 Route::get('/sold-products',[InvoiceController::class,'soldProducts'])->middleware(['auth'])->name('sold.products');
 // Route::get('/delete', [InvoiceController::class,'delete']);
 
@@ -76,9 +78,13 @@ Route::get('/add-customer', function () {
     return view('Admin.add_customer');
 })->middleware(['auth'])->name('add.customer');
 
+Route::get('/edit-customer/{id}', [CustomerController::class,'edit'])->middleware(['auth'])->name('edit.customer');
+
 Route::post('/insert-customer',[CustomerController::class,'store'])->middleware(['auth']);
 
 Route::get('/all-customers',[CustomerController::class,'customersData'])->middleware(['auth'])->name('all.customers');
+
+Route::post('/update-customer/{id}', [CustomerController::class,'update'])->middleware(['auth'])->name('update.customer');
 
 
 Route::get('/dashboard', function () {
