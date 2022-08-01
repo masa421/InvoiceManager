@@ -15,13 +15,25 @@ class InvoiceController extends Controller
 {
     public function store(Request $request){
     	
-    	$data=new Invoice;
-        $data->customer_name= $request->customer;
+    	$data = new Invoice;
+        // var_dump($request);
+        //file_put_contents("sample.txt", var_dump($request));
+
+        // For Debugging POST Data
+        /*
+        ob_start();
+        var_dump($_POST);
+        $dump = ob_get_contents();
+        ob_end_clean();
+        file_put_contents( 'sample.txt', $dump ); // C:\xampp\htdocs\InvoiceManager\public\sample.txt 
+        */
+ 
+        $data->customer_name= $request->c_name;
     	$data->customer_mail= $request->email;
         $data->company = $request->company;
         $data->address = $request->address;
         $data->item = $request->item;
-    	$data->product_name = $request->name;
+    	$data->product_name = $request->product_name;
     	$data->price = $request->sale_price;
     	$data->quantity = $request->quantity;
         $data->total = $request->total;
@@ -30,11 +42,11 @@ class InvoiceController extends Controller
         $data->save();
 
         //order_track
-        $productCode = Product::where('name',$request->name)->first();
+        $productCode = Product::where('name',$request->product_name)->first();
         $data2=new Order;
         $data2->email= $request->email;
         $data2->product_code = $productCode->product_code;
-        $data2->product_name = $request->name;
+        $data2->product_name = $request->product_name;
         $data2->quantity = $request->quantity;
         $data2->order_status = 1;
         $data2->save();

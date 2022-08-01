@@ -23,7 +23,9 @@
                                         </select>
                                     </div>
                                 </div>
-
+                                <div class="form-group" id="c_name" style="visiblity:none;">
+                                    <input class="form-control py-4" name="c_name" type="hidden" />
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group"  name="email" id="email">
                                         <!-- <label class="small mb-1" for="inputFirstName">Customer Email</label>
@@ -104,7 +106,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                       <label class="small mb-1" for="inputState">Product Name</label>
-                                      <select id="inputState" name="name" class="form-control">
+                                      <select id="inputState" name="product_name" class="form-control">
                                         <option selected>Choose...</option>
                                         @foreach($products as $row)
                                             @if( $row->stock > 1)
@@ -184,6 +186,10 @@ $(document).ready(function(){
                 $("#address").html('<label class="small mb-1" for="inputFirstName">Customer Address</label>');
                 var x = '<input class="form-control py-4" name="address" value="'+data.customer.address+'" type="text"/>';
                 $("#address").append(x);
+
+                //$("#c_name").html('<label class="small mb-1" for="inputFirstName">Customer Address</label>');
+                var x = '<input class="form-control py-4" name="c_name" value="'+data.customer.name+'" type="hidden"/>';
+                $("#c_name").append(x);
             }
         });
     });
