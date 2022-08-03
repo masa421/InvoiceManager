@@ -6,4 +6,8 @@ Todo:
   ☐ Customer アカウントによる全ての情報の切り分け
   ☐ Setting Screen を設置、Userの会社情報を保存できるように。
   ☐ 会社情報の設定（ABN、Phone、Address、Logo）
+  ☐ Invoiceの送付。pdfの保存、メールに添付して送付。
+  ☐ CompanyControllerの作成
+  ☐ Company Tableの作成
+  
 
