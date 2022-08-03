@@ -1,0 +1,9 @@
+
+Todo:
+  ☐ Product アカウントによる全ての情報の切り分け
+  ☐ Invoice アカウントによる全ての情報の切り分け
+  ☐ Order アカウントによる全ての情報の切り分け
+  ☐ Customer アカウントによる全ての情報の切り分け
+  ☐ Setting Screen を設置、Userの会社情報を保存できるように。
+  ☐ 会社情報の設定（ABN、Phone、Address、Logo）
+
