@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class CustomerController extends Controller
 // {
@@ -65,7 +67,27 @@ class CustomerController extends Controller
         // $customers = Customer::where('id' ,'=',$id)->get();     
         // return view('Admin.edit_customer',compact('customers'));
 
-        $customers =  Customer::find($id);
+        // user_id info 
+        $auth=auth()->user()->id;
+        $user=User::find($auth);
+        
+        // Original
+        //$customers = Customer::find($id);
+
+        //$query = Customer::query();
+        //$query->where('id', $id); 
+        //$query->where('user_id', $auth);
+        //$customers = $query->get();// user_id が 1 のもの且つstatus が 1 のものだけを取得する
+        //$customers = Customer::where('user_id', $auth)->where('id', $id)->get();
+
+        
+        $customers_count = Customer::where('id', $id)->where('user_id', $auth)->count();
+        if($customers_count != 1){
+            abort(500);
+        }
+
+        $customers = Customer::where('id', $id)->where('user_id', $auth)->first();
+
         return view('Admin.edit_customer',compact('customers'));
     }
 
@@ -78,12 +100,17 @@ class CustomerController extends Controller
 
     public function store(Request $request)
     {
+        // user_id info 
+        $auth=auth()->user()->id;
+        $user=User::find($auth);
+
         $customer = new Customer();
         $customer->name = $request->name;
         $customer->email = $request->email;
         $customer->company = $request->company;
         $customer->address = $request->address;
         $customer->phone = $request->phone;
+        $customer->user_id = $auth;
 
         $customer->save();
         return Redirect()->route('add.customer');
@@ -93,12 +120,17 @@ class CustomerController extends Controller
     public function update($id,Request $request)
     {
        
+        // user_id info 
+        $auth=auth()->user()->id;
+        $user=User::find($auth);
+
         $customer =  Customer::find($id);
         $customer->name = $request->name;
         $customer->email = $request->email;
         $customer->company = $request->company;
         $customer->address = $request->address;
         $customer->phone = $request->phone;
+        $customer->user_id = $auth;
         // $customer->password = $request->password;
         // $customer->gender = $request->gender;
         // if($request->is_active){
@@ -124,12 +156,36 @@ class CustomerController extends Controller
 
         
     public function customersData(){
-        $customers = Customer::all();
+
+        // user_id info 
+        $auth=auth()->user()->id;
+        $user=User::find($auth);
+
+        // Original
+        //$customers = Customer::all();
+        // Variation
+        //$customers = Customer::get();
+
+        // filtered customer
+        $customers = Customer::where('user_id', $auth)->get();
+
         return view('Admin.all_customers',compact('customers'));
     }
          
     public function Editcustomer($id){
-        $customer =  Customer::find($id);
+
+        // user_id info 
+        $auth=auth()->user()->id;
+        $user=User::find($auth);
+        
+        // Original
+        // $customer =  Customer::find($id);
+
+        $query = Customer::query();
+        $query->where('id',$id); 
+        $query->where('user_id',$auth);
+        $customer = $query->get();// user_id が 1 のもの且つstatus が 1 のものだけを取得する
+
         return view('Admin.edit_customer',compact('customers'));
     }
      

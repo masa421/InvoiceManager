@@ -2,22 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Order;
+use App\Models\Company;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Customer;
-use App\Models\Order;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
-
 
 class InvoiceController extends Controller
 {
     public function store(Request $request){
     	
     	$data = new Invoice;
+
+        // user_id info 
+        $auth=auth()->user()->id;
+        $user=User::find($auth);
         // var_dump($request);
-        //file_put_contents("sample.txt", var_dump($request));
+        // file_put_contents("sample.txt", $request);
 
         // For Debugging POST Data
         /*
@@ -27,7 +31,7 @@ class InvoiceController extends Controller
         ob_end_clean();
         file_put_contents( 'sample.txt', $dump ); // C:\xampp\htdocs\InvoiceManager\public\sample.txt 
         */
- 
+
         $data->customer_name= $request->c_name;
     	$data->customer_mail= $request->email;
         $data->company = $request->company;
@@ -38,7 +42,9 @@ class InvoiceController extends Controller
     	$data->quantity = $request->quantity;
         $data->total = $request->total;
         $data->payment = $request->payment;
+        $data->user_id = $request->user_id;
         $data->due = $request->total - $request->payment;
+    	$data->user_id = $auth;
         $data->save();
 
         //order_track
@@ -49,6 +55,7 @@ class InvoiceController extends Controller
         $data2->product_name = $request->product_name;
         $data2->quantity = $request->quantity;
         $data2->order_status = 1;
+    	$data2->user_id = $auth;
         $data2->save();
 
         //customer_track
@@ -84,14 +91,40 @@ class InvoiceController extends Controller
     }
 
     public function newformData(){
-        $products = Product::all();
-        $customers = Customer::all();
-        return view('Admin.new_invoice',compact('products','customers'));
+
+        // user_id info 
+        $auth=auth()->user()->id;
+        $user=User::find($auth);
+
+        // filtered customer
+        $customers = Customer::where('user_id', $auth)->get();
+
+        //$products = Product::all();
+        $products = Product::where('user_id', $auth)->get();
+        
+        if($customers->count() > 0 && $products->count() > 0){
+            // $customers = Customer::all();
+            return view('Admin.new_invoice',compact('products','customers'));
+        }else{
+            // You can't make invoice without Customer and Product
+            return back()->with('message', 'You need Customer and Products');
+        }
+
     }
 
 
     public function allInvoices(){
-        $invoices = Invoice::all();
+
+        // user_id info 
+        $auth=auth()->user()->id;
+        $user=User::find($auth);
+
+        // Original
+        // $invoices = Invoice::all();
+
+        // filtered customer
+        $invoices = Invoice::where('user_id', $auth)->get();
+
         return view('Admin.all_invoices',compact('invoices'));
     }
 
@@ -111,7 +144,24 @@ class InvoiceController extends Controller
         // $customers = Customer::where('id' ,'=',$id)->get();     
         // return view('Admin.edit_customer',compact('customers'));
 
-        $data =  Invoice::find($id);
-        return view('Admin.invoice_details',compact('data'));
+        // user_id info 
+        $auth=auth()->user()->id;
+        $user=User::find($auth);
+
+        // Org
+        // $data =  Invoice::find($id);
+
+        $invoices_count = Invoice::where('id', $id)->where('user_id', $auth)->count();
+        if($invoices_count != 1){
+            abort(500);
+        }
+
+        // filtered customer
+        $company = Company::where('user_id', $auth)->first();
+
+        $data = Invoice::where('id', $id)->where('user_id', $auth)->first();
+
+        //dd($company);
+        return view('Admin.invoice_details',compact('data','company'));
     }    
 }

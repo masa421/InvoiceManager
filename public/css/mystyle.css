@@ -9,10 +9,14 @@
   } 
 
   .invoice-box{
-    width: 210mm;
+    /*width: 210mm;
     height: 297mm;
+    width: 150px;
+    height: 100px;*/
     box-sizing: border-box;
     padding: 20mm;
+    /* background-color: red !important; */
+    font:bold !important;
   }
   head title{
     display:none;  
@@ -21,8 +25,11 @@
 
 @page { 
   /*size: auto;  */
+  size: A4 portrait;
   margin: 0mm; 
 }
+
+@page { size: 210mm 297mm } /* A4タテと同じ */
 
 .invoice-box{
   width: 210mm;
@@ -31,3 +38,10 @@
   padding: 20mm;
 }
 
+.sheet::after {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  counter-increment: sheet;
+  content: "ページ " counter(sheet);
+}

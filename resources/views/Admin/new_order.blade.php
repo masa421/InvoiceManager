@@ -98,9 +98,14 @@ $(document).ready(function(){
 $("#name").change(function() {
     var c_name = $("#name").val(); 
     console.log(c_name);
+
+    var c_baseurl = "<?php echo url(''); ?>";
+    // console.log(c_baseurl);
+    c_baseurl = c_baseurl + "/api/get-customer";
+
     $.ajax({
         type: 'POST',
-        url: "http://127.0.0.1:8000/api/get-customer",
+        url: c_baseurl,
         dataType: 'json',
         data: {
             "id" : c_name

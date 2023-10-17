@@ -110,9 +110,9 @@
 						<table>
 							<tr>
 								<td class="title">
-									<h2>Dflat</h2>
+									<img class="hidden w-48 mr-6 md:block"
+									src="{{$company->logo_img_path ? asset('storage/'.$company->logo_img_path) : asset('images/no-image.png')}}" alt=""/>
 								</td>
-
 								<td>
 									Invoice #: {{$data->id }}<br />
 									Created: {{$data->created_at }}<br />
@@ -127,9 +127,9 @@
 						<table>
 							<tr>
 								<td>
-									Dflat<br />
-									0401-536-214<br />
-									Embleton, Perth
+									{{$company->name}} <br />
+									{{$company->phone}}<br />
+									{{$company->address1}} {{$company->address2}}
 								</td>
 
 								<td>
@@ -173,16 +173,15 @@
 					<td>{{ $data->due }}</td>
 				</tr>
 
-
+				<!--
 				<tr class="item last">
 					<td>Status</td>
 
 					<td>Product on Delivery</td>
 				</tr>
-
+				-->
 				<tr class="total">
 					<td></td>
-
                     <td><input style="padding:5px;" value="Print Document" type="button" onclick="myFunction()" class="button"></input></td>
 				</tr>
 			</table>

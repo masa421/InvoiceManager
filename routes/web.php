@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CompanyController;
 use Illuminate\Http\Request;
 
 /*
@@ -36,6 +37,8 @@ Route::get('/available-products',[ProductController::class,'availableProducts'])
 Route::get('/purchase-products/{id}', [ProductController::class,'purchaseData'])->middleware(['auth']);
 
 Route::post('/insert-purchase-products',[ProductController::class,'storePurchase'])->middleware(['auth']);
+
+Route::get('/unstockable-products',[ProductController::class,'unstockableProduct'])->middleware(['auth'])->name('products.unstockable');
 
 
 //invoice
@@ -85,6 +88,24 @@ Route::post('/insert-customer',[CustomerController::class,'store'])->middleware(
 Route::get('/all-customers',[CustomerController::class,'customersData'])->middleware(['auth'])->name('all.customers');
 
 Route::post('/update-customer/{id}', [CustomerController::class,'update'])->middleware(['auth'])->name('update.customer');
+
+
+//compnay
+Route::get('/add-company', function () {
+    return view('company.add');
+})->middleware(['auth'])->name('add.company');
+
+Route::get('/company/all',[CompanyController::class,'all'])->middleware(['auth']);
+
+Route::get('/company/{id}', [CompanyController::class,'show'])->middleware(['auth']);
+
+Route::put('/company/{id}/edit',[CompanyController::class,'update'])->middleware(['auth']);
+
+Route::post('/insert-company',[CompanyController::class,'store'])->middleware(['auth']);
+
+Route::get('/new-company', [CompanyController::class,'newformData'])->middleware(['auth'])->name('new.company');
+
+Route::get('/company/', [CompanyController::class,'info'])->middleware(['auth']);
 
 
 Route::get('/dashboard', function () {

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Customer;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -47,13 +48,29 @@ class OrderController extends Controller
     }
 
     public function newformData(){
-        $products = Product::all();
-        $customers = Customer::get();
+
+        // user_id info 
+        $auth=auth()->user()->id;
+        $user=User::find($auth);
+
+        // $products = Product::all();
+        $products = Product::where('user_id', $auth)->get();
+
+        // $customers = Customer::get();
+        $customers = Customer::where('user_id', $auth)->get();
+
         return view('Admin.new_order',compact('products','customers'));
     }
 
     public function ordersData(){
-        $orders = Order::all();
+
+        // user_id info 
+        $auth=auth()->user()->id;
+        $user=User::find($auth);
+
+        //$orders = Order::all();
+        $orders = Order::where('user_id', $auth)->get();
+
         return view('Admin.all_orders',compact('orders'));
     }
 

@@ -3,7 +3,7 @@
 <div class="card mb-4">
     <div class="card-header">
         <i class="fas fa-table mr-1"></i>
-        All Products
+        Unstockable Products
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -13,39 +13,24 @@
                         <th>Code</th>
                         <th>Name</th>
                         <th>Category</th>
-                        <th>Stock</th>
-                        <th>Unit Price</th>
                         <th>Sale Price</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                 	@foreach($products as $row)
+                    @if(!$row->stock >= 0)
                     <tr>
                         <td>{{ $row->product_code }}</td>
                         <td>{{ $row->name }}</td>
-                        <td>{{ $row->category }}</td>
-                        
-                        @if($row->stock > '0')
-                            <td>{{ $row->stock }}</td>
-                        @else
-                            <td>-</td>
-                        @endif
-
-                        @if($row->stock > '0')
-                            <td>{{ $row->unit_price }}</td>
-                        @else
-                            <td>-</td>
-                        @endif
+                        <td>{{ $row->category }}</td>                        
                         <td>{{ $row->sales_unit_price }}</td>
                         <td>
                         	<a href="#" class="btn btn-sm btn-info">Edit</a>
                             <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                            @if($row->stock > '0')
-                            	<a href="{{ 'purchase-products/'.$row->id }}" class="btn btn-sm btn-info">Purchase</a>
-                            @endif
                         </td>
                     </tr>
+                    @endif
                     @endforeach
                     
                 </tbody>

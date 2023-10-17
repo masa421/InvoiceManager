@@ -1,13 +1,31 @@
 
 Todo:
-  ☐ Product アカウントによる全ての情報の切り分け
-  ☐ Invoice アカウントによる全ての情報の切り分け
-  ☐ Order アカウントによる全ての情報の切り分け
-  ☐ Customer アカウントによる全ての情報の切り分け
+  ■ Product アカウントによる全ての情報の切り分け
+  ■ Invoice アカウントによる全ての情報の切り分け
+  ■ Order アカウントによる全ての情報の切り分け
+  ■ Customer アカウントによる全ての情報の切り分け
   ☐ Setting Screen を設置、Userの会社情報を保存できるように。
-  ☐ 会社情報の設定（ABN、Phone、Address、Logo）
+  ■ 会社情報の設定（ABN、Phone、Address、Logo）
   ☐ Invoiceの送付。pdfの保存、メールに添付して送付。
-  ☐ CompanyControllerの作成
-  ☐ Company Tableの作成
+  ■ CompanyControllerの作成
+  ■ Company Tableの作成
+
+  ■ Create New Invoice 画面でProduct CategoryがUserIDで絞られてない。[2023/08/31][2023/08/31]
+  ■ Create New Invoice 画面でProduct NameがUserIDで絞られてない。[2023/08/31][2023/08/31]
+  ■ Create New Invoice 画面でCustomer Name を選んだ時にデータを取りに行くAjax処理が固定URLになっている [2023/08/31][2023/08/31]
+
+  ☐ Create New Invoice 画面で、Product Category と、Product Nameが不整合に選べる。
+     カテゴリAと、カテゴリBがあり、AにはNameとして、AA、AB、BにはNameとしてBCがあった時に、カテゴリAと、BCという組み合わせが選べてしまう。
+     本来であれば、選択されたCategoryのものだけがNameとして表示されるはず
+
+  ☐ invoice を印刷しようとしたときに、XP-600を選ぶか、WF-2860を選ぶかで印刷のイメージが大きく異なる。
+  どちらを選んでも同じようなイメージで印刷されるべき [2023/10/02]
   
 
+  Products
+  ☐ Edit機能を実装する
+  ☐ Delete機能を実装する -> Invoiceがない場合のみ可能とする。
+  ☐ Purchase機能が未チェック
+  ☐ Stock が -1 なら、Stockできない商品とする。
+  ☐ Unstockable Productsメニューを作成する。（Stock = -1 の商品）
+  ■ Stock可の商品と不可の商品のフラグを持つようにする。(is_stockable)

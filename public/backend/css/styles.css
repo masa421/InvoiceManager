@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*!
-* Start Bootstrap - SB Admin v6.0.2 (https://startbootstrap.com/template/sb-admin)
+* Start Bootstrap - SB Admin v6.0.3 (https://startbootstrap.com/template/sb-admin)
 * Copyright 2013-2020 Start Bootstrap
 * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-sb-admin/blob/master/LICENSE)
 */
@@ -6513,6 +6513,9 @@ button.bg-dark:focus {
   .d-print-inline-flex {
     display: inline-flex !important;
   }
+  .sb-sidenav-menu{
+    display: none !important;
+  } 
 }
 .embed-responsive {
   position: relative;

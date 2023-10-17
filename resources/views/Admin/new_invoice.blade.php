@@ -91,29 +91,45 @@
                                     </div>
                                 </div> -->
                                 <div class="col-md-6">
-                                    <div class="form-group">
+                                    <div class="form-group" name="category">
                                       <label class="small mb-1" for="inputState">Product Category</label>
-                                      <select id="inputState" name="item" class="form-control">
+                                      <select id="category" name="item" class="form-control">
                                         <option selected>Choose...</option>
-                                        @foreach($products as $row)
-                                            @if( $row->stock > 1)
-                                                <option>{{ $row->category }}</option>
-                                            @endif
+                                        @php
+                                            $cates = array();
+                                            foreach($products as $row){
+                                                if(($row->is_stockable == true && $row->stock > 1) || $row->is_stockable == false){
+                                                    $flg = 0;
+                                                    foreach ($cates as $cate) {
+                                                        if($cate == $row->category){
+                                                            $flg = 1;
+                                                        }
+                                                    }
+                                                    if($flg == 0)
+                                                        $cates[] = $row->category;
+                                                }
+                                            }
+                                        @endphp
+
+                                        @foreach($cates as $cate)
+                                            <option>{{ $cate }}</option>
                                         @endforeach
-                                      </select>
+                                    </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                      <label class="small mb-1" for="inputState">Product Name</label>
-                                      <select id="inputState" name="product_name" class="form-control">
-                                        <option selected>Choose...</option>
-                                        @foreach($products as $row)
-                                            @if( $row->stock > 1)
+                                    <div class="form-group" name="product" id="product">
+                                        <!--
+                                        <label class="small mb-1" for="inputState">Product Name</label>
+                                        <select id="inputState" name="product_name" class="form-control">
+                                            <option selected>Choose...</option>
+                                            @foreach($products as $row)
+                                            @if(($row->is_stockable == true && $row->stock > 1) || $row->is_stockable == false)
                                                 <option>{{ $row->name }}</option>
-                                            @endif
-                                        @endforeach
-                                      </select>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                        -->
                                     </div>
                                 </div>
 
@@ -146,7 +162,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <input id="user_id" name="user_id" type="hidden" val="{{ $products[0]->user_id }}"/>
                             <div class="form-group mt-4 mb-0"><button class="btn btn-primary btn-block">Submit</button></div>
                         </form>
                     </div>
@@ -161,10 +177,15 @@
 $(document).ready(function(){
     $("#name").change(function() {
         var c_name = $("#name").val(); 
-        console.log(c_name);
+        // console.log(c_name);
+
+        var c_baseurl = "<?php echo url(''); ?>";
+        // console.log(c_baseurl);
+        c_baseurl = c_baseurl + "/api/get-customer";
+        
         $.ajax({
             type: 'POST',
-            url: "http://127.0.0.1:8000/api/get-customer",
+            url: c_baseurl,
             dataType: 'json',
             data: {
                 "id" : c_name
@@ -194,5 +215,46 @@ $(document).ready(function(){
         });
     });
 });
+
+$(document).ready(function(){
+    $("#category").change(function() {
+        var c_category = $("#category").val(); 
+        console.log(c_category);
+
+        var c_baseurl = "<?php echo url(''); ?>";
+        c_baseurl = c_baseurl + "/api/get-product";
+        console.log(c_baseurl);
+
+        c_user_id = {{ $products[0]->user_id }};
+
+        $.ajax({
+            type: 'POST',
+            url: c_baseurl,
+            dataType: 'json',
+            data: {
+                "category" : c_category,
+                "user_id" : c_user_id
+            },
+            success: function(data) {
+                console.log(data);
+                var htmlinfo = '<label class="small mb-1" for="inputState">Product Name</label><select id="inputState" name="product_name" class="form-control">';
+
+                $.each(data.product, function(i, item) {
+                    //console.log(data.product[i].name);
+                    var x = '<option>'+data.product[i].name+'</option>';
+                    htmlinfo = htmlinfo + x;
+                });
+                var xf = '</select>'
+                htmlinfo = htmlinfo + xf;
+                $("#product").html(htmlinfo);
+                
+            }
+        });
+    });
+});
+
+
 </script>
+
 @endsection
+
